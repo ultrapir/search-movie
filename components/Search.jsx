@@ -31,6 +31,11 @@ const Search = () => {
                     <ul>
                         {movies.map((movie) => (
                             <li key={movie.imdbID}>
+                                <img 
+                                    src={movie.Poster !== 'N/A' ? movie.Poster : 'https://via.placeholder.com/150'} 
+                                    alt={movie.Title} 
+                                    style={{ width: '100px', marginRight: '10px' }}
+                                />
                                 {movie.Title} ({movie.Year})
                             </li>
                         ))}
