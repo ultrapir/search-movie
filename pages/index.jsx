@@ -9,7 +9,6 @@ export default function Home() {
                 <meta name="description" content="Поиск фильмов с использованием OMDb API" />
             </Head>
             <main>
-                <h1>Поиск Фильмов</h1>
                 <Search />
             </main>
         </div>

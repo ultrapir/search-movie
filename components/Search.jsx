@@ -18,14 +18,15 @@ const Search = () => {
 
     return (
         <div className={styles.container}>
-            <form onSubmit={handleSubmit}>
-                <input 
+            <h1 className={styles.zag}>Поиск Фильмов</h1>
+            <form className={styles.formSearch} onSubmit={handleSubmit}>
+                <input className={styles.inp}
                     type="text" 
                     value={query} 
                     onChange={(e) => setQuery(e.target.value)} 
                     placeholder="Поиск фильмов ..."
                 />
-                <button type="submit">Поиск</button>
+                <button className={styles.btn} type="submit">Поиск</button>
             </form>
             <div>
                 {movies.length > 0 && (
