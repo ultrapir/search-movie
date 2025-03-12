@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
+import styles from './search.module.css';
 
 const Search = () => {
     const [query, setQuery] = useState('');
@@ -16,7 +17,7 @@ const Search = () => {
     };
 
     return (
-        <div>
+        <div className={styles.container}>
             <form onSubmit={handleSubmit}>
                 <input 
                     type="text" 
@@ -28,7 +29,7 @@ const Search = () => {
             </form>
             <div>
                 {movies.length > 0 && (
-                    <ul>
+                    <ul className={styles['movie-list']}>
                         {movies.map((movie) => (
                             <li key={movie.imdbID}>
                                 <img 
