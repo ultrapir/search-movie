@@ -6,6 +6,8 @@ export default function Home() {
         <div>
             <Head>
                 <title>Movie Search</title>
+                <meta charset="UTF-8" />
+                <meta http-equiv="Cache-Control" content="no-cache" />
                 <meta name="description" content="Поиск фильмов с использованием OMDb API" />
             </Head>
             <main>
