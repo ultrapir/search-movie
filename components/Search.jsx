@@ -1,20 +1,34 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import styles from './search.module.css';
 
 const Search = () => {
+    const router = useRouter();
     const [query, setQuery] = useState('');
     const [movies, setMovies] = useState([]);
 
     const fetchMovies = async () => {
         const response = await axios.get(`http://www.omdbapi.com/?s=${query}&apikey=a2b07930&s`);
-        setMovies(response.data.Search || []);
+        const fetchedMovies = response.data.Search || [];
+        setMovies(fetchedMovies);
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
         fetchMovies();
     };
+
+    useEffect(() => {
+        const { movies: savedMovies, query: savedQuery } = router.query;
+        if (savedMovies) {
+            setMovies(JSON.parse(savedMovies));
+        }
+        if (savedQuery) {
+            setQuery(savedQuery);
+        }
+    }, [router.query]);
 
     return (
         <div className={styles.container}>
@@ -33,12 +47,16 @@ const Search = () => {
                     <ul className={styles['movie-list']}>
                         {movies.map((movie) => (
                             <li key={movie.imdbID}>
-                                <img 
-                                    src={movie.Poster !== 'N/A' ? movie.Poster : 'https://via.placeholder.com/150'} 
-                                    alt={movie.Title} 
-                                    style={{ width: '100px', marginRight: '10px' }}
-                                />
-                                {movie.Title} ({movie.Year})
+                                <Link href={{
+                                    pathname: `/movie/${movie.imdbID}`,
+                                    query: { srcMovies: JSON.stringify(movies), query: query }
+                                    }}>
+                                    <img 
+                                        src={movie.Poster !== 'N/A' ? movie.Poster : 'https://via.placeholder.com/150'} 
+                                        alt={movie.Title} 
+                                    />
+                                    <p>{movie.Title} ({movie.Year})</p>
+                                </Link>
                             </li>
                         ))}
                     </ul>
